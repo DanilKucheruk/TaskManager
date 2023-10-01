@@ -1,0 +1,76 @@
+.container {
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+
+
+h2 {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Additional CSS to make fields the same length */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  box-sizing: border-box;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  flex: 1;
+ }
+ .login-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-link a {
+  color: #4CAF51;
+}
