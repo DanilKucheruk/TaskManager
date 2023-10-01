@@ -28,7 +28,10 @@ public class RegistrationUserServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String role = request.getParameter("role");
-		CreateUserDto userEnt = new CreateUserDto(email,firstName,lastName,password,role);
+		String departmentCode = request.getParameter("department-code");
+		
+		CreateUserDto userEnt = new CreateUserDto(email,firstName,lastName,password,role,departmentCode);
+		
 		try {
 			userService.createUser(userEnt);
 			response.sendRedirect("login.jsp");

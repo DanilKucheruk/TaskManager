@@ -17,7 +17,8 @@ public class CreateUserMapper implements Mapper<User,CreateUserDto>{
 				object.getFirstName(),
 				object.getLastName(),
 				object.getPassword(),
-				Role.valueOf(object.getRole()));
+				Role.valueOf(object.getRole()),
+				object.getDepartmentCode());
 		return user;
 
 	}

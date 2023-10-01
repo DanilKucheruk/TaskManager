@@ -10,12 +10,14 @@ public class CreateUserDto {
 	private String lastName;
 	private String password;
 	private String role;
-	public CreateUserDto(String email,String firstName,String lastName,String password, String role) {
+	private String departmentCode;
+	public CreateUserDto(String email,String firstName,String lastName,String password, String role,String departmentCode) {
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.role = role;
+		this.setDepartmentCode(departmentCode);
 	}
 	public String getLastName() {
 		return lastName;
@@ -46,5 +48,11 @@ public class CreateUserDto {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public String getDepartmentCode() {
+		return departmentCode;
+	}
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
 	}
 }

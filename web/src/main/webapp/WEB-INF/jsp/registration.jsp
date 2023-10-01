@@ -32,9 +32,14 @@
 		</select></br>
       </div>
       <div class="form-group">
+        <label for="department-code">Код отдела: </label>
+        <input type="text" id="department-code" name="department-code" required>
+      </div>
+      <div class="form-group">
         <label for="password">Пароль:</label>
         <input type="password" id="password" name="password" required>
       </div>
+      
       <button type="submit">Зарегистрироваться</button>
       <div class="login-link">
 	    <a href="/web/login">Войти</a>

@@ -1,26 +1,29 @@
 package dto;
 
 import java.util.Objects;
-
 import entity.Role;
 
 public class UserDto {
-	private Long id;
-	private String email;
-	private String firstName;
-	private String lastName;
-	private String password;
-	private Role role;
-	public UserDto(Long id,String email,String firstName,String lastName,String password, Role role) {
-		this.id =id;
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.password = password;
-		this.role = role;
-	}
-	
-	public String getLastName() {
+    private Long id;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private Role role;
+    private String departmentCode;
+
+    public UserDto(Long id, String email, String firstName, String lastName, String password, Role role, String departmentCode) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.role = role;
+        this.setDepartmentCode(departmentCode);
+    }
+
+    // Getters and Setters
+    public String getLastName() {
 		return lastName;
 	}
 	public void setLastName(String lastName) {
@@ -56,15 +59,23 @@ public class UserDto {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	@Override
+	public String getDepartmentCode() {
+		return departmentCode;
+	}
+
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
+	}
+	
+    @Override
     public boolean equals(Object o) {
-    	if(this == o) return true;
-    	if(o == null || getClass() != o.getClass()) return false;
-    	UserDto user = (UserDto)o;
-    	return Objects.equals(o, user);
-    	
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDto user = (UserDto) o;
+        return Objects.equals(o, user);
     }
-	@Override
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, email);
     }
@@ -78,7 +89,8 @@ public class UserDto {
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", departmentCode=" + departmentCode +
                 '}';
     }
-    
+
 }

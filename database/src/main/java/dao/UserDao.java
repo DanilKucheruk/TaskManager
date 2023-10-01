@@ -21,7 +21,7 @@ public class UserDao implements Dao<Long,User>{
 	private UserDao() {}
 	private List<User> usersList;
 	private final String SAVE_SQL = """
-			INSERT INTO users(email,first_name,last_name,password,role) VALUES(?,?,?,?,?)
+			INSERT INTO users(email,first_name,last_name,password,role, department_code) VALUES(?,?,?,?,?,?)
 			""";
 	private final String GET_BY_EMEIL_AND_PASSWORD ="""
 			SELECT * FROM users
@@ -57,7 +57,8 @@ public class UserDao implements Dao<Long,User>{
 				resultSet.getString("first_name"),
 				resultSet.getString("last_name"),
 				resultSet.getString("password"),
-				Role.valueOf(resultSet.getString("role"))
+				Role.valueOf(resultSet.getString("role")),
+				resultSet.getString("department_code")
 				);
 	}
 	@Override
@@ -83,6 +84,7 @@ public class UserDao implements Dao<Long,User>{
 			prSt.setString(3, entity.getLastName());
 			prSt.setString(4, entity.getPassword());
 			prSt.setString(5, entity.getRole().name());
+			prSt.setString(6, entity.getDepartmentCode());
 			prSt.executeUpdate();
 			ResultSet keys = prSt.getGeneratedKeys();
 			keys.next();

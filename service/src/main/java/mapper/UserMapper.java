@@ -16,7 +16,8 @@ public class UserMapper implements Mapper<UserDto,User> {
 				object.getFirstName(),
 				object.getLastName(),
 				object.getPassword(),
-				object.getRole()
+				object.getRole(),
+				object.getDepartmentCode()
 				);
 		return userDto;
 	}
