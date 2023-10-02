@@ -4,7 +4,7 @@ import dto.UserDto;
 import entity.User;
 import entity.Role;
 public class UserMapper implements Mapper<UserDto,User> {
-	public static final UserMapper INSTANCE = new UserMapper();
+	private static final UserMapper INSTANCE = new UserMapper();
 	public static UserMapper getInstance() {
 		return INSTANCE;
 	}

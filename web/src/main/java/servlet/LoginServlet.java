@@ -2,8 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
-
-
+import dto.UserDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,10 +22,9 @@ public class LoginServlet extends HttpServlet{
 		try {
 			userService.login(req.getParameter("email"), req.getParameter("password")).ifPresentOrElse(
 					user -> {
-						req.getSession().setAttribute("user",user);
 						try {
-							resp.sendRedirect("/main");
-						}catch (IOException e) {
+							onLoginSuccess(user,req,resp);
+						} catch (IOException e) {
 							e.printStackTrace();
 						}
 					},
@@ -38,9 +36,14 @@ public class LoginServlet extends HttpServlet{
 	}
 	public void onLoginFileError(HttpServletRequest req, HttpServletResponse resp) {
 		try {
-			resp.sendRedirect("/web/login");
+			resp.sendRedirect("/login");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void onLoginSuccess(UserDto user,HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		req.getSession().setAttribute("user", user);
+		resp.sendRedirect("/web/projects");
 	}
 }

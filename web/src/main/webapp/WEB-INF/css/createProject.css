@@ -1,0 +1,14 @@
+.create-project-button {
+    background-color: #cfe2ff;
+    color: #333; 
+    font-size: 20px; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    margin-top:20px;
+}
+
+.create-project-button:hover {
+    background-color: #cfe2ff; 
+}

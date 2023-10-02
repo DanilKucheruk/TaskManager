@@ -13,13 +13,12 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-@WebFilter("/*")
+//@WebFilter("/*")
 public class AuthorizationFilter implements Filter{
 	private static final Set<String> PUBLIC_PATH = Set.of("/web/login","/web/registration");
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
-		
 		  String uri = ((HttpServletRequest) servletRequest).getRequestURI();
 		  if(isPublicPath(uri) || isUserLoggedIn(servletRequest)) {
 			  filterChain.doFilter(servletRequest, servletResponse);

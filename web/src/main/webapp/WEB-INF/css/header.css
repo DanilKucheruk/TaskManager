@@ -1,0 +1,39 @@
+@charset "UTF-8";
+.header {
+    background-color: #45a049;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-button,
+.logout-button,
+.search-button {
+    background-color: white;
+    color: #45a049;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input[type="text"] {
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.search-bar .search-button {
+    background-color: white;
+    color: #45a049;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
