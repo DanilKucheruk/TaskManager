@@ -11,9 +11,9 @@
 <body>
 	<div class = "create-project">
 		<c:if test = "${sessionScope.user.getRole() eq 'ADMIN'}">
-            <form action="/web/login" method="post">
-            <button class="create-project-button">Создать проект</button>
-        </form>
+           <div class="create-project-button">
+             <a href="/web/createproject">Создать проект</a>
+             </div>
         </div>
 		</c:if>
 	</div>

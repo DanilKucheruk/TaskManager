@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet{
 	}
 	public void onLoginFileError(HttpServletRequest req, HttpServletResponse resp) {
 		try {
-			resp.sendRedirect("/login");
+			resp.sendRedirect("/web/login");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

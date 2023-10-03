@@ -20,6 +20,7 @@ public class UserDao implements Dao<Long,User>{
 	}
 	private UserDao() {}
 	private List<User> usersList;
+	private List<String> fullUserNames;
 	private final String SAVE_SQL = """
 			INSERT INTO users(email,first_name,last_name,password,role, department_code) VALUES(?,?,?,?,?,?)
 			""";
@@ -33,6 +34,11 @@ public class UserDao implements Dao<Long,User>{
 	private final String SQL_FIND_BY_ID = """
 			SELECT * from users
 			WHERE id = ?
+			""";
+	private final String SQL_GET_USER_NAMES = """
+			SELECT CONCAT(first_name, ' ', last_name) AS full_name 
+			FROM users
+			WHERE department_code = ?;
 			""";
 	
 	@Override
@@ -60,6 +66,19 @@ public class UserDao implements Dao<Long,User>{
 				Role.valueOf(resultSet.getString("role")),
 				resultSet.getString("department_code")
 				);
+	}
+	public List<String> getUserNames(String departmentCode){
+		fullUserNames = new ArrayList<>();
+		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SQL_GET_USER_NAMES)){
+			prSt.setString(1, departmentCode);
+			ResultSet resultSet = prSt.executeQuery();
+			while(resultSet.next()) {
+				fullUserNames.add(resultSet.getString("full_name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return fullUserNames;
 	}
 	@Override
 	public Optional<User> findById(Long id) {
