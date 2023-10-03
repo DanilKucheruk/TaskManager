@@ -15,7 +15,7 @@ public class CreateProjectMapper implements Mapper<Project,CreateProjectDto> {
 		Project project = new Project(
 				object.getName(),
 				object.getDescription(),
-				Integer.parseInt(object.getAdminId()),
+				object.getAdminId(),
 				LocalDateForrmater.format(object.getDeadline())
 				);
 		return project;

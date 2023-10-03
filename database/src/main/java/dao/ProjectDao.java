@@ -18,7 +18,7 @@ public class ProjectDao implements Dao<Long,Project>{
 	}
 	private List<Project> projects;
 	private static final String SAVE_PROJECT_SQL= """
-				INSERT INTO project(name,description,admin_id,deadline) VALUSE(?,?,?,?);
+				INSERT INTO project(name,description,admin_id,deadline) VALUES(?,?,?,?);
 			""";
 	private static final String FIND_ALL_SQL ="""
 			SELECT * FROM project;
@@ -48,9 +48,9 @@ public class ProjectDao implements Dao<Long,Project>{
 		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SAVE_PROJECT_SQL,Statement.RETURN_GENERATED_KEYS)){
 			prSt.setString(1, entity.getName());
 			prSt.setString(2, entity.getDescription());
-			prSt.setInt(3, entity.getAdminId());
+			prSt.setLong(3, entity.getAdminId());
 			prSt.setObject(4, entity.getDeadline());
-			prSt.executeQuery();
+			prSt.executeUpdate();
 			ResultSet keys = prSt.getGeneratedKeys();
 			keys.next();
 			entity.setId(keys.getObject("id",Long.class));
@@ -66,7 +66,7 @@ public class ProjectDao implements Dao<Long,Project>{
 					resultSet.getLong("id"),
 					resultSet.getString("name"),
 					resultSet.getString("description"),
-					resultSet.getInt("admin_id"),
+					resultSet.getLong("admin_id"),
 					resultSet.getDate("deadline").toLocalDate()
 					);
 			return project;

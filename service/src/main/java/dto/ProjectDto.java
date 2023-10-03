@@ -9,9 +9,9 @@ public class ProjectDto {
 	private Long id;
 	private String name;
 	private String description;
-	private Integer adminId;
+	private Long adminId;
 	LocalDate deadline;
-	public ProjectDto(Long id, String name, String description, Integer adminId, LocalDate deadline) {
+	public ProjectDto(Long id, String name, String description, Long adminId, LocalDate deadline) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -31,10 +31,10 @@ public class ProjectDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getAdminId() {
+	public Long getAdminId() {
 		return adminId;
 	}
-	public void setAdminId(Integer adminId) {
+	public void setAdminId(Long adminId) {
 		this.adminId = adminId;
 	}
 	public String getDescription() {

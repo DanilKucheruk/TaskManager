@@ -7,9 +7,9 @@ import entity.Project;
 public class CreateProjectDto {
 	private String name;
 	private String description;
-	private String adminId;
-	String deadline;
-	public CreateProjectDto(String name, String description, String adminId, String deadline) {
+	private Long adminId;
+	private String deadline;
+	public CreateProjectDto(String name, String description, Long adminId, String deadline) {
         this.name = name;
         this.description = description;
         this.adminId = adminId;
@@ -23,10 +23,10 @@ public class CreateProjectDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAdminId() {
+	public Long getAdminId() {
 		return adminId;
 	}
-	public void setAdminId(String adminId) {
+	public void setAdminId(Long adminId) {
 		this.adminId = adminId;
 	}
 	public String getDescription() {

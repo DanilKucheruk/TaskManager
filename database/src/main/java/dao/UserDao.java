@@ -40,7 +40,9 @@ public class UserDao implements Dao<Long,User>{
 			FROM users
 			WHERE department_code = ?;
 			""";
-	
+	private final String SQL_GET_ID_BY_FULL_NAME ="""
+			SELECT users.id FROM users WHERE CONCAT(first_name,' ',last_name) = ?;
+			""";
 	@Override
 	public List<User> findAll() {
 		usersList = new ArrayList<>();
@@ -55,6 +57,18 @@ public class UserDao implements Dao<Long,User>{
 			e.printStackTrace();
 		}
 		return usersList;
+	}
+	public Long getIdByFullName(String fullName) {
+		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SQL_GET_ID_BY_FULL_NAME) ){
+			prSt.setString(1,fullName);
+			ResultSet resultSet = prSt.executeQuery();
+			if(resultSet.next()) {
+				return resultSet.getLong(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0l;
 	}
 	private User userBuilder(ResultSet resultSet) throws SQLException {
 		return new User(

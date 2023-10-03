@@ -18,15 +18,9 @@ public class ProjectServlet extends HttpServlet {
 	private static UserDao userDao = UserDao.getInstance();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		UserDto userDto = (UserDto) session.getAttribute("user");
-		String depCode = userDto.getDepartmentCode();
-		List<String> value = userDao.getUserNames(depCode);
-		req.setAttribute("userList", value);
-		req.getRequestDispatcher("createProject.jsp").include(req, resp);
+		req.getRequestDispatcher("projects.jsp").include(req, resp);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 	}
 }

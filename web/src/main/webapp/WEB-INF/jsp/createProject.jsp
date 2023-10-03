@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Создание проекта</title>
     <link rel="stylesheet" type="text/css" href="createProjectForm.css">
 </head>
@@ -20,15 +20,16 @@
 
         <label for="date">Крайний срок:</label>
         <input type="date" id="date" name="date" required><br>
-		<label for="admin">Ответственный:</label>
+        
+		<label for=responsible>Ответственный:</label>
 		
 		 <form action="processForm" method="post">
-        <select name="usersNames">
-            <c:forEach items="${userList}" var="user">
+        <select name="responsible">
+            <c:forEach items="${usersFullNamesList}" var="user">
                 <option value="${user}">${user}</option>
             </c:forEach>
         </select>
-        <input type="submit" value="Создать проект">
+        <button href= "web/projects">Создать проект</button>
      	
     </form>
 </body>
