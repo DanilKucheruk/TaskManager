@@ -1,34 +1,31 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import dao.ProjectDao;
+import dao.ProjectParticipantDao;
 import dto.UserDto;
-import entity.Project;
+import entity.ProjectParticipant;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/projects")
-public class ProjectServlet extends HttpServlet {
-	private static ProjectDao projectDao = ProjectDao.getInstance();
+@WebServlet("/addToProject")
+public class ProjectParticipantServlet extends HttpServlet{
+	private ProjectParticipantDao projectParticipantDao = ProjectParticipantDao.getInstance();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String projectId =  req.getParameter("project_id").toString();
 		UserDto userDto = (UserDto) req.getSession().getAttribute("user");
 		Long userId = userDto.getId();
-		List<Project> projects = projectDao.findAllProjectsByIdParticipantsId(userId);
-		List<String> projectsNames = new ArrayList<>();
- 		for(Project pj : projects) {
-			projectsNames.add(pj.getName());
+		ProjectParticipant pjParticipant = new ProjectParticipant(userId,Long.parseLong(projectId));
+		try {
+			projectParticipantDao.save(pjParticipant);
+			resp.sendRedirect("/web/projects");
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		req.setAttribute("projectsNames", projectsNames);
-		req.getRequestDispatcher("projects.jsp").include(req, resp);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

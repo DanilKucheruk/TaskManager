@@ -7,10 +7,8 @@
 </head>
 <body>
     <div class="header">
-        <button class="profile-button">Профиль</button>
-        <div class="search-bar">
-            <input type="text" placeholder="Поиск">
-            <button class="search-button">Найти</button>
+        <div class="logo" >
+           <a>TaskManager</a>
         </div>
         <form action="/web/logout" method="post">
             <button class="logout-button">Выход</button>

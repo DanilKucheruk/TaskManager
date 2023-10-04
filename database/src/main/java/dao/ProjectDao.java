@@ -21,7 +21,14 @@ public class ProjectDao implements Dao<Long,Project>{
 				INSERT INTO project(name,description,admin_id,deadline) VALUES(?,?,?,?);
 			""";
 	private static final String FIND_ALL_SQL ="""
-			SELECT * FROM project;
+			SELECT * FROM project
+			ORDER BY deadline
+			;
+			""";
+	private static final String SQL_FIND_ALL_PROJECTS_BY_PARTICIPANT_ID = """
+			SELECT * FROM project AS pj
+			JOIN project_participants AS pj_part ON  pj_part.project_id = pj.id
+			WHERE  pj_part.user_id = ?;
 			""";
 	@Override
 	public List<Project> findAll() {
@@ -53,13 +60,32 @@ public class ProjectDao implements Dao<Long,Project>{
 			prSt.executeUpdate();
 			ResultSet keys = prSt.getGeneratedKeys();
 			keys.next();
-			entity.setId(keys.getObject("id",Long.class));
+			entity.setId(keys.getLong("id"));
 			return entity;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+	
+	
+	public List<Project> findAllProjectsByIdParticipantsId(Long id) {
+		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SQL_FIND_ALL_PROJECTS_BY_PARTICIPANT_ID)){
+			projects = new ArrayList<>();
+			prSt.setLong(1, id);
+			ResultSet resultSet = prSt.executeQuery();
+			Project project = null;
+			while(resultSet.next()) {
+				project = projectBuilder(resultSet);
+				projects.add(project);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+	
+	
 	public Project projectBuilder(ResultSet resultSet){
 		try {
 			Project project = new Project(
@@ -76,5 +102,6 @@ public class ProjectDao implements Dao<Long,Project>{
 		return null;
 		
 	}
+	
 	
 }

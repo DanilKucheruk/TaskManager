@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -22,15 +21,13 @@
         <input type="date" id="date" name="date" required><br>
         
 		<label for=responsible>Ответственный:</label>
-		
-		 <form action="processForm" method="post">
-        <select name="responsible">
-            <c:forEach items="${usersFullNamesList}" var="user">
-                <option value="${user}">${user}</option>
-            </c:forEach>
-        </select>
-        <button href= "web/projects">Создать проект</button>
-     	
-    </form>
+    	<form action="processForm" method="post">
+	        <select name="responsible">
+	            <c:forEach items="${usersFullNamesList}" var="user">
+	                <option value="${user}">${user}</option>
+	            </c:forEach>
+	        </select>
+	        <button >Создать проект</button>
+    	</form>
 </body>
 </html>

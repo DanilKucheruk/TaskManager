@@ -9,8 +9,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import java.nio.charset.StandardCharsets;
-
-//@WebFilter("/*")
+@WebFilter("/*")
 public class CharsetFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)

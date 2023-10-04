@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
     <title>Проекты</title>
-    <link rel="stylesheet" type="text/css" href="createProject.css">
+    <link rel = "stylesheet" type="text/css" href="projects.css">
 </head>
 <body>
 	<div class = "create-project">
@@ -14,8 +14,14 @@
            <div class="create-project-button">
              <a href="/web/createproject">Создать проект</a>
              </div>
-        </div>
 		</c:if>
+	</div>
+	<div class = "projects-menu">
+	 <c:forEach var="entry" items="${projectsNames}">	
+	 <a href = "" >
+	 ${entry}
+	 </a>
+	</c:forEach>
 	</div>
 </body>
 
