@@ -15,12 +15,12 @@
 Каждый слой храниться в отдельном maven проекте, а все они, в свою очередь, лежат в родительском maven проекте.
 
 # Стек
-+ Java 20 (Core, Collections, Optional, Stream) 
-+ PostgreSQL 
++ Java 11 (Core, Collections, Optional, Stream) 
++ PostgreSQL 42.6.0
 + Servlets  
 + JDBC
-+ Maven
-+ Apache Tomcat
++ Maven 3.9.4
++ Apache Tomcat 10.1.13
 + JSP, JSTL
 + CSS
 
