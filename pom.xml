@@ -7,8 +7,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<scm>
-		<connection>scm:git:git@github.com:danillkins/TaskManager.git</connection>
-		<developerConnection>scm:git:git@github.com:danillkins/TaskManager.git</developerConnection>
+		<connection>scm:git:git@github.com:DanilKucheruk/TaskManager.git</connection>
+		<developerConnection>scm:git:git@github.com:DanilKucheruk/TaskManager.git</developerConnection>
 		<url></url>
 	</scm>
 	<modules>
