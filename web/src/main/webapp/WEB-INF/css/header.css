@@ -1,24 +1,25 @@
 @charset "UTF-8";
+
 .header {
-    background-color: #45a049;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	background-color: #45a049;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.logout-button{
-    background-color: white;
-    color: #45a049;
-    border: none;
-    padding: 5px 10px;
-    margin-left: 10px;
-    cursor: pointer;
+.logout-button {
+	background-color: white;
+	color: #45a049;
+	border: none;
+	padding: 5px 10px;
+	margin-left: 10px;
+	cursor: pointer;
 }
 
 
-.logo a{
-    color: white;
-    padding: 10px;
-    font-size: 30px;
+.logo a {
+	color: white;
+	padding: 10px;
+	font-size: 30px;
 }

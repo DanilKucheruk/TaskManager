@@ -11,15 +11,20 @@ import java.util.Optional;
 import entity.ProjectParticipant;
 import util.ConnectionManager;
 
-public class ProjectParticipantDao implements Dao<Long,ProjectParticipant> {
+public class ProjectParticipantDao implements Dao<Long, ProjectParticipant> {
 	private static final ProjectParticipantDao INSTANCE = new ProjectParticipantDao();
+
 	public static ProjectParticipantDao getInstance() {
 		return INSTANCE;
 	}
-	private ProjectParticipantDao() {}
+
+	private ProjectParticipantDao() {
+	}
+
 	private final String SAVE_SQL = """
 			INSERT INTO project_participants(user_id,project_id) VALUES(?,?);
 			""";
+
 	@Override
 	public List<ProjectParticipant> findAll() {
 		// TODO Auto-generated method stub
@@ -34,7 +39,8 @@ public class ProjectParticipantDao implements Dao<Long,ProjectParticipant> {
 
 	@Override
 	public ProjectParticipant save(ProjectParticipant entity) {
-		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SAVE_SQL,Statement.RETURN_GENERATED_KEYS)){
+		try (Connection connection = ConnectionManager.open();
+				PreparedStatement prSt = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
 			prSt.setLong(1, entity.getUserId());
 			prSt.setLong(2, entity.getProjectId());
 			prSt.executeUpdate();

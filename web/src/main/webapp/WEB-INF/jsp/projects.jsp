@@ -16,13 +16,14 @@
              </div>
 		</c:if>
 	</div>
-	<div class = "projects-menu">
-	 <c:forEach var="entry" items="${projectsNames}">	
-	 <a href = "" >
-	 ${entry}
-	 </a>
-	</c:forEach>
+	<div class="projects-menu">
+		<c:forEach items="${projectIdAndNames}" var="entry" >
+		    <a href="/web/project?projectId=${entry.key}">
+		      <c:out value="${entry.value}" />
+		    </a>
+		</c:forEach>
 	</div>
+
 </body>
 
 </html>

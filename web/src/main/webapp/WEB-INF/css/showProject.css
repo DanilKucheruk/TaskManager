@@ -1,11 +1,17 @@
-.create-project {
+@charset "UTF-8";
+
+p {
+	font-size: 20px;
+}
+
+.create-task {
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-start;
 	margin-top: 20px;
 }
 
-.create-project-button {
+.create-task-button {
 	background-color: #cfe2ff;
 	font-size: 20px;
 	padding: 10px 20px;
@@ -17,15 +23,28 @@
 	text-decoration-line: none;
 }
 
-.projects-menu {
+button {
+	margin-top: 20px;
+	background-color: #4CAF50;
+	color: #800000;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+}
+
+.task-menu {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(4, 24%);
 	grid-gap: 20px;
 	margin-top: 20px;
 	align-items: center;
+	width: 100%;
 }
 
-.projects-menu a {
+
+.task {
+	overflow: hidden;
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -34,10 +53,7 @@
 	text-decoration: none;
 	color: #000;
 	text-decoration-line: none;
+	margin-bottom: 20px;
 	background-color: #f2f2f2;
 	border-radius: 10px;
-}
-
-.projects-menu a:hover {
-	background-color: #ddd;
 }

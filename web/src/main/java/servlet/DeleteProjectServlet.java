@@ -2,17 +2,21 @@ package servlet;
 
 import java.io.IOException;
 
+import dao.ProjectDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/deleteproject")
+public class DeleteProjectServlet extends HttpServlet {
+	private static ProjectDao projectDao = ProjectDao.getInstance();
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getSession().invalidate();
-		resp.sendRedirect("/web/login");
+		Long projectId = Long.parseLong(req.getParameter("projectId"));
+		projectDao.deleteById(projectId);
+		resp.sendRedirect("/web/projects");
 	}
 }

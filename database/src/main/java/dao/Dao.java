@@ -6,8 +6,10 @@ import java.util.Optional;
 
 import entity.User;
 
-public interface Dao<K, T>{
+public interface Dao<K, T> {
 	List<T> findAll();
-	Optional<T> findById(K id) ;
+
+	Optional<T> findById(K id);
+
 	T save(T entity);
 }

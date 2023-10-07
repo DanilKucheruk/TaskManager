@@ -13,43 +13,49 @@ import entity.Role;
 import entity.User;
 import util.ConnectionManager;
 
-public class UserDao implements Dao<Long,User>{
+public class UserDao implements Dao<Long, User> {
 	private static final UserDao INSTANCE = new UserDao();
+
 	public static UserDao getInstance() {
 		return INSTANCE;
 	}
-	private UserDao() {}
+
+	private UserDao() {
+	}
+
 	private List<User> usersList;
 	private List<String> fullUserNames;
 	private final String SAVE_SQL = """
 			INSERT INTO users(email,first_name,last_name,password,role, department_code) VALUES(?,?,?,?,?,?)
 			""";
-	private final String GET_BY_EMEIL_AND_PASSWORD ="""
+	private final String GET_BY_EMEIL_AND_PASSWORD = """
 			SELECT * FROM users
 			WHERE email = ? AND password = ?;
 			""";
-	private final String SQL_FIND_ALL = """
+	private final String FIND_ALL_SQL = """
 			SELECT * FROM users
 			""";
-	private final String SQL_FIND_BY_ID = """
+	private final String FIND_BY_ID_SQL = """
 			SELECT * from users
 			WHERE id = ?
 			""";
-	private final String SQL_GET_USER_NAMES = """
-			SELECT CONCAT(first_name, ' ', last_name) AS full_name 
+	private final String GET_USER_NAMES_SQL = """
+			SELECT CONCAT(first_name, ' ', last_name) AS full_name
 			FROM users
 			WHERE department_code = ?;
 			""";
-	private final String SQL_GET_ID_BY_FULL_NAME ="""
+	private final String GET_ID_BY_FULL_NAME_SQL = """
 			SELECT users.id FROM users WHERE CONCAT(first_name,' ',last_name) = ?;
 			""";
+
 	@Override
 	public List<User> findAll() {
 		usersList = new ArrayList<>();
-		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SQL_FIND_ALL) ){
+		try (Connection connection = ConnectionManager.open();
+				PreparedStatement prSt = connection.prepareStatement(FIND_ALL_SQL)) {
 			ResultSet resultSet = prSt.executeQuery();
 			User user = null;
-			while(resultSet.next()) {
+			while (resultSet.next()) {
 				user = userBuilder(resultSet);
 				usersList.add(user);
 			}
@@ -58,11 +64,13 @@ public class UserDao implements Dao<Long,User>{
 		}
 		return usersList;
 	}
+
 	public Long getIdByFullName(String fullName) {
-		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SQL_GET_ID_BY_FULL_NAME) ){
-			prSt.setString(1,fullName);
+		try (Connection connection = ConnectionManager.open();
+				PreparedStatement prSt = connection.prepareStatement(GET_ID_BY_FULL_NAME_SQL)) {
+			prSt.setString(1, fullName);
 			ResultSet resultSet = prSt.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				return resultSet.getLong(1);
 			}
 		} catch (SQLException e) {
@@ -70,23 +78,20 @@ public class UserDao implements Dao<Long,User>{
 		}
 		return 0l;
 	}
+
 	private User userBuilder(ResultSet resultSet) throws SQLException {
-		return new User(
-				resultSet.getLong("id"),
-				resultSet.getString("email"),
-				resultSet.getString("first_name"),
-				resultSet.getString("last_name"),
-				resultSet.getString("password"),
-				Role.valueOf(resultSet.getString("role")),
-				resultSet.getString("department_code")
-				);
+		return new User(resultSet.getLong("id"), resultSet.getString("email"), resultSet.getString("first_name"),
+				resultSet.getString("last_name"), resultSet.getString("password"),
+				Role.valueOf(resultSet.getString("role")), resultSet.getString("department_code"));
 	}
-	public List<String> getUserNames(String departmentCode){
+
+	public List<String> getUserNames(String departmentCode) {
 		fullUserNames = new ArrayList<>();
-		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SQL_GET_USER_NAMES)){
+		try (Connection connection = ConnectionManager.open();
+				PreparedStatement prSt = connection.prepareStatement(GET_USER_NAMES_SQL)) {
 			prSt.setString(1, departmentCode);
 			ResultSet resultSet = prSt.executeQuery();
-			while(resultSet.next()) {
+			while (resultSet.next()) {
 				fullUserNames.add(resultSet.getString("full_name"));
 			}
 		} catch (SQLException e) {
@@ -94,13 +99,15 @@ public class UserDao implements Dao<Long,User>{
 		}
 		return fullUserNames;
 	}
+
 	@Override
 	public Optional<User> findById(Long id) {
-		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SQL_FIND_BY_ID) ){
+		try (Connection connection = ConnectionManager.open();
+				PreparedStatement prSt = connection.prepareStatement(FIND_BY_ID_SQL)) {
 			prSt.setLong(1, id);
 			User user = null;
-			ResultSet resultSet =prSt.executeQuery();
-			if(resultSet.next()) {
+			ResultSet resultSet = prSt.executeQuery();
+			if (resultSet.next()) {
 				user = userBuilder(resultSet);
 				return Optional.ofNullable(user);
 			}
@@ -109,9 +116,11 @@ public class UserDao implements Dao<Long,User>{
 		}
 		return Optional.empty();
 	}
+
 	@Override
 	public User save(User entity) {
-		try(Connection connection = ConnectionManager.open(); PreparedStatement prSt = connection.prepareStatement(SAVE_SQL,Statement.RETURN_GENERATED_KEYS)){
+		try (Connection connection = ConnectionManager.open();
+				PreparedStatement prSt = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
 			prSt.setString(1, entity.getEmail());
 			prSt.setString(2, entity.getFirstName());
 			prSt.setString(3, entity.getLastName());
@@ -127,26 +136,23 @@ public class UserDao implements Dao<Long,User>{
 			e.printStackTrace();
 		}
 		return null;
-	} 
-	
-	public Optional<User> findByEmailAndPassword(String email, String password) {
-	    try (Connection connect = ConnectionManager.open();
-	         PreparedStatement prSt = connect.prepareStatement(GET_BY_EMEIL_AND_PASSWORD)) {
-	        prSt.setString(1, email);
-	        prSt.setString(2, password);
-	        ResultSet rs = prSt.executeQuery();
-	        User user = null;
-	        if (rs.next()) {
-	            user = userBuilder(rs);
-	        }
-	        return Optional.ofNullable(user);
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return Optional.empty();
 	}
 
-	
+	public Optional<User> findByEmailAndPassword(String email, String password) {
+		try (Connection connect = ConnectionManager.open();
+				PreparedStatement prSt = connect.prepareStatement(GET_BY_EMEIL_AND_PASSWORD)) {
+			prSt.setString(1, email);
+			prSt.setString(2, password);
+			ResultSet rs = prSt.executeQuery();
+			User user = null;
+			if (rs.next()) {
+				user = userBuilder(rs);
+			}
+			return Optional.ofNullable(user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Optional.empty();
+	}
 
-	
 }

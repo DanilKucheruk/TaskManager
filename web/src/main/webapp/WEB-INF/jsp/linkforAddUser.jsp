@@ -12,7 +12,7 @@
 <h1>Отправте эту ссылку работникам, для того чтобы они смогли присоединится к проекту</h1>
 	<div class="container">
 		<a href="">${link}</a>
-		<button href="/web/projects">К проектам!</button>
+		<a href="/web/projects"><button>К проектам!</button></a>
 	</div>
 </body>
 </html>

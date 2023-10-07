@@ -1,6 +1,5 @@
 package entity;
 
-public enum Role{ 
-	ADMIN,
-	USER,
+public enum Role {
+	ADMIN, USER,
 }
